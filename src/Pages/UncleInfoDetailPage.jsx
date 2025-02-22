@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import { useParams } from "react-router";
+import axios from 'axios';
 import '../style.css'
 
 const photoAddressData = 
@@ -9,11 +11,34 @@ const photoAddressData =
     "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHBlb3BsZXxlbnwwfHwwfHx8MA%3D%3D"
   ]
 
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+const API_PATH = import.meta.env.VITE_API_PATH;
+
 export default function UncleInfoDetailPage() {
-  const [subPhotoAddress, setSubPhotoAddress] = useState(photoAddressData[0]);
+  const [product, setProduct] = useState({});
+  const [subPhotoAddress, setSubPhotoAddress] = useState('');
+  const { id: product_id } = useParams(); //重新命名為product_id
+  
   const handlePhotoAddress = (el) => {
     setSubPhotoAddress(el.target.currentSrc);
   };
+
+  useEffect(() => {
+    const getProducts = async () => {
+      // setIsScreenLoading(true);
+      try {
+        const res = await axios.get(`${BASE_URL}/api/${API_PATH}/product/${product_id}`);
+        setProduct(res.data.product);
+        setSubPhotoAddress(res.data.product.imageUrl);
+        console.log(res.data.product);
+      } catch (error) {
+        alert(error);
+      } finally {
+        // setIsScreenLoading(false);
+      }
+    };
+    getProducts();
+  }, []);
 
   return (
     <>
@@ -24,7 +49,7 @@ export default function UncleInfoDetailPage() {
             </div>
             <div className='section-2'>
               <div className="thumbnails">
-                <img src={photoAddressData[0]} alt="縮圖1" style={
+                <img src={product.imageUrl} alt="縮圖1" style={
                 {
                   border: "2px solid",
                   borderColor: photoAddressData[0] === subPhotoAddress ? "#73DB6A" : "transparent"
@@ -67,22 +92,22 @@ export default function UncleInfoDetailPage() {
         </div>
         <div className="uncle-info">
           <div className="uncle-details">
-            <div><label className='name'>阿哲</label></div>
+            <div><label className='name'>{product.title}</label></div>
             <div className='sub-title-content'>
               <label className='title'>所在地</label>
-              <label className='content'>台北</label>
+              <label className='content'>{`category:${product.category}`}</label>
             </div>
             <div className='sub-title-content'>
               <label className='title'>使用語言</label>
-              <label className='content'>華語、台語、英語</label>
+              <label className='content'>{`content:${product.content}`}</label>
             </div>
             <div className='sub-title-content'>
               <label className='title'>專長</label>
-              <span className="tag">長者陪伴</span>
-              <span className="tag">日常代辦</span>
-              <span className="tag">家俱修繕</span>
-              <span className="tag">開車接送</span>
-              <span className="tag">聊天</span>
+              <span className="tag">{`des:${product.description}`}</span>
+              <span className="tag">{`des:${product.description}`}</span>
+              <span className="tag">{`des:${product.description}`}</span>
+              <span className="tag">{`des:${product.description}`}</span>
+              <span className="tag">{`des:${product.description}`}</span>
             </div>
             <div className="row">
               <div className="col-6">
@@ -103,7 +128,7 @@ export default function UncleInfoDetailPage() {
             <div className='uncle-price'>
               <div className='sub-title-content'>
                 <label className='title'>價格</label>
-                <label className='content-price'>NT800</label>
+                <label className='content-price'>{`NT${product.price}`}</label>
               </div>
             </div>
             <div className='uncle-button'>

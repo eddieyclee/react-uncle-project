@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 import axios from "axios";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -13,7 +14,6 @@ export default  function UncleInfoPage() {
       try {
         const res = await axios.get(`${BASE_URL}/api/${API_PATH}/products`);
         setProducts(res.data.products);
-        // console.log(res.data.products);
       } catch (error) {
         alert(error);
       } finally {
@@ -41,7 +41,7 @@ export default  function UncleInfoPage() {
                   {/* <p className="card-text">{product.content.slice(0, 50) + "..."}</p> */}
                   <p className="text">{product.content.slice(0, 50) + "..."}</p>
                   {/* <a href="#" className="btn btn-primary">了解更多</a> */}
-                  <a href="#" className="btns">了解更多</a>
+                  <Link className="btns" to={`/uncleinfo/${product.id}`}>了解更多</Link>
                 </div>
               </div>
             </div>

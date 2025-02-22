@@ -17,7 +17,7 @@ const routes = [
           element: <UncleInfoPage/>
         },
         {
-          path: 'uncleinfo',
+          path: 'uncleinfo/:id',
           element: <UncleInfoDetailPage/>
         }
       ]

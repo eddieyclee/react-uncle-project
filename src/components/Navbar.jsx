@@ -25,7 +25,7 @@ export default function Navbar() {
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
           <li className="nav-item">
-            <NavLink className="nav-link" to="/uncleinfo">大叔接招</NavLink>
+            <NavLink className="nav-link" to="/uncleinfos">大叔接招</NavLink>
           </li>
           <li className="nav-item">
             <NavLink className="nav-link" to="/">精選文章</NavLink>
