@@ -43,20 +43,49 @@ export default function UncleInfoDetailPage() {
     getProducts();
   }, [product_id]);
 
+  const addCartItem = async (ticket) => {
+    // '一小時券', '二小時券', '三小時券', '半日券', '全日券', '三日券'
+    let newQty;
+    if (ticket === tickets[0]) {
+      newQty = Number(qty) * 1;
+    } else if (ticket === tickets[1]) {
+      newQty = Number(qty) * 2;
+    } else if (ticket === tickets[2]) {
+      newQty = Number(qty) * 3;
+    } else if (ticket === tickets[3]) {
+      newQty = Number(qty) * 4;
+    } else if (ticket === tickets[4]) {
+      newQty = Number(qty) * 8;
+    } else if (ticket === tickets[5]) {
+      newQty = Number(qty) * 24;
+    }
 
-  const addCartItem = async () => {
+    const cookie = JSON.stringify(
+      {
+        product_id,
+        qty,
+        ticket
+      })
+    
     // setIsScreenLoading(true);
     try {
       await axios.post(`${BASE_URL}/api/${API_PATH}/cart`, {
         data: {
           product_id, 
-          qty: Number(qty)
+          qty: newQty
         }
       });
       alert('加入購物車成功');
-      Cookies.set("tickName", ticket, { expires: 7 });
-      const tickName = Cookies.get("tickName");
-      console.log(tickName);
+      let cookieData = null;
+      if (Cookies.get("tickList")) {
+        cookieData = JSON.parse(Cookies.get("tickList"));
+      } else {
+        cookieData = [];
+      }
+      cookieData.push(cookie)
+      const jsonCookieData = JSON.stringify(cookieData);
+      Cookies.set("tickList", jsonCookieData, { expires: 1 });
+      console.log(JSON.parse(Cookies.get("tickList")));
     } catch (error) {
       alert(error);
     } finally {
@@ -76,7 +105,7 @@ export default function UncleInfoDetailPage() {
                 <img src={product.imageUrl} alt="縮圖1" style={
                 {
                   border: "2px solid",
-                  borderColor: photoAddressData[0] === subPhotoAddress ? "#73DB6A" : "transparent"
+                  borderColor: product.imageUrl === subPhotoAddress ? "#73DB6A" : "transparent"
                 }
                 } onClick={handlePhotoAddress}/>
                 <img src={photoAddressData[1]} alt="縮圖2" style={
@@ -160,12 +189,12 @@ export default function UncleInfoDetailPage() {
             </div>
             <div className='uncle-price'>
               <div className='sub-title-content'>
-                <label className='title'>價格</label>
+                <label className='title'>價格(時)</label>
                 <label className='content-price'>{`NT${product.price}`}</label>
               </div>
             </div>
             <div className='uncle-button'>
-              <button className='cart-button' onClick={addCartItem}>加入購物車</button>
+              <button className='cart-button' onClick={() => addCartItem(ticket)}>加入購物車</button>
             </div>
           </div>
         </div>
