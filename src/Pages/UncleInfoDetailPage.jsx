@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import { useParams } from "react-router";
+import Cookies from 'js-cookie';
 import axios from 'axios';
-import '../style.css'
+import '../style.css';
 
 const photoAddressData = 
   [
@@ -9,15 +10,18 @@ const photoAddressData =
     "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGVvcGxlfGVufDB8fDB8fHww",
     "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHBlb3BsZXxlbnwwfHwwfHx8MA%3D%3D",
     "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHBlb3BsZXxlbnwwfHwwfHx8MA%3D%3D"
-  ]
+  ];
 
+const tickets = ['一小時券', '二小時券', '三小時券', '半日券', '全日券', '三日券'];
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
 export default function UncleInfoDetailPage() {
   const [product, setProduct] = useState({});
-  const [subPhotoAddress, setSubPhotoAddress] = useState('');
+  const [ticket, setTicket] = useState('');
+  const [subPhotoAddress, setSubPhotoAddress] = useState(null);
   const { id: product_id } = useParams(); //重新命名為product_id
+  const [qty, setQty] = useState(1);
   
   const handlePhotoAddress = (el) => {
     setSubPhotoAddress(el.target.currentSrc);
@@ -30,7 +34,6 @@ export default function UncleInfoDetailPage() {
         const res = await axios.get(`${BASE_URL}/api/${API_PATH}/product/${product_id}`);
         setProduct(res.data.product);
         setSubPhotoAddress(res.data.product.imageUrl);
-        console.log(res.data.product);
       } catch (error) {
         alert(error);
       } finally {
@@ -38,7 +41,28 @@ export default function UncleInfoDetailPage() {
       }
     };
     getProducts();
-  }, []);
+  }, [product_id]);
+
+
+  const addCartItem = async () => {
+    // setIsScreenLoading(true);
+    try {
+      await axios.post(`${BASE_URL}/api/${API_PATH}/cart`, {
+        data: {
+          product_id, 
+          qty: Number(qty)
+        }
+      });
+      alert('加入購物車成功');
+      Cookies.set("tickName", ticket, { expires: 7 });
+      const tickName = Cookies.get("tickName");
+      console.log(tickName);
+    } catch (error) {
+      alert(error);
+    } finally {
+      // setIsScreenLoading(false);
+    }
+  };
 
   return (
     <>
@@ -82,7 +106,7 @@ export default function UncleInfoDetailPage() {
               </div>
               <div className='sub-content'>
                 <label className='spec-info' htmlFor="">產品規格介紹</label>
-                <p className='info'>全部規格包含：一小時券、而小時券、三小時券、半日券、全日券、三日券，半日券的服務時長最長不超過 4 小時，全日券之服務時長不超過 8 小時，三日券的使用方式，請與大叔約定使用之日期，每個日期提供等同一日券服務，服務時長不超過 8 小時。</p>
+                <p className='info'>全部規格包含：一小時券、二小時券、三小時券、半日券、全日券、三日券，半日券的服務時長最長不超過 4 小時，全日券之服務時長不超過 8 小時，三日券的使用方式，請與大叔約定使用之日期，每個日期提供等同一日券服務，服務時長不超過 8 小時。</p>
               </div>
               <div className='sub-content'>
                 <label className='info' htmlFor="">服務聲明</label>
@@ -95,33 +119,42 @@ export default function UncleInfoDetailPage() {
             <div><label className='name'>{product.title}</label></div>
             <div className='sub-title-content'>
               <label className='title'>所在地</label>
-              <label className='content'>{`category:${product.category}`}</label>
+              <label className='content'>{product.category}</label>
             </div>
             <div className='sub-title-content'>
               <label className='title'>使用語言</label>
-              <label className='content'>{`content:${product.content}`}</label>
+              {product.content?.split(',').map((item) => {
+                  return (
+                    <label key={item} className='content me-2' style={
+                      { display:'inline-block'}
+                    }>{item}</label>
+                  )
+              })}
             </div>
             <div className='sub-title-content'>
               <label className='title'>專長</label>
-              <span className="tag">{`des:${product.description}`}</span>
-              <span className="tag">{`des:${product.description}`}</span>
-              <span className="tag">{`des:${product.description}`}</span>
-              <span className="tag">{`des:${product.description}`}</span>
-              <span className="tag">{`des:${product.description}`}</span>
+              {product.description?.split(',').map((item) => {
+                  return (
+                    <span key={item} className="tag">{item}</span>
+                  )
+              })}
             </div>
             <div className="row">
               <div className="col-6">
                 <label className='title'>規格<span style={{color: 'red'}}>*</span></label>
-                <select className='mt-1'>
-                  <option>請選擇</option>
+                <select className='mt-1' value={ticket} onChange={(el) => setTicket(el.target.value)}>
+                  <option value="" disabled>請選擇</option>
+                  {tickets.map((item) => {
+                    return (<option key={item} value={item}>{item}</option>)
+                  })}
                 </select>
               </div>
               <div className="col-6">
                 <label className='title'>數量</label>
                 <div className="quantity-container mt-1">
-                  <button className="quantity-button-l" disabled>-</button>
-                  <input type="text" className="quantity-input" defaultValue="1" />
-                  <button className="quantity-button-r">+</button>
+                  <button className="quantity-button-l" onClick={() => setQty(qty-1)} disabled={qty === 1}>-</button>
+                  <input type="text" className="quantity-input" value={qty} readOnly/>
+                  <button className="quantity-button-r" onClick={() => setQty(qty+1)}>+</button>
                 </div>
               </div>
             </div>
@@ -132,7 +165,7 @@ export default function UncleInfoDetailPage() {
               </div>
             </div>
             <div className='uncle-button'>
-              <button className='cart-button'>加入購物車</button>
+              <button className='cart-button' onClick={addCartItem}>加入購物車</button>
             </div>
           </div>
         </div>

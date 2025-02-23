@@ -26,7 +26,7 @@ export default  function UncleInfoPage() {
   return (
     <div className="container">
       <div className="row row-cols-1 row-cols-md-3 g-4">
-        {products.map((product) => {
+        {products?.map((product) => {
           return (
             <div key={product.id} className="col">
               <div className="card d-flex flex-column h-60">

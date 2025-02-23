@@ -191,12 +191,15 @@ span.tag {
 .uncle-info {
   max-width: 416px;
   max-height: 608px;
+  width: 100%;
+  height: 100%;
   background-color: #F8F8F9;
   padding: 24px;
 }
 
 .uncle-details {
-  max-width: 368px;
+  width: 100%;
+  height: 100%;
 }
 
 select {
@@ -207,6 +210,7 @@ select {
   border: 1px solid #9B9B9B;
   border-radius: 4px;
   font-size: 16px;
+  cursor: pointer;
 }
 
 .quantity-container {
@@ -260,7 +264,7 @@ label.content-price {
 }
 
 .uncle-button {
-  margin-top: 48px;
+  margin-top: 24px;
 }
 
 .cart-button {
