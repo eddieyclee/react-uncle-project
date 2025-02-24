@@ -44,8 +44,8 @@ export default function CartPage() {
         <tr key={cartItem.id}>
           <td><button type="button" className="btn btn-outline-danger btn-sm">x</button></td>
           <td>{cartItem.product.title}</td>
-          <td>{cookieData && cookieData[index].ticket}</td>
-          <td>{cookieData && cookieData[index].qty}</td>
+          <td>{cookieData && cookieData[index]?.ticket}</td>
+          <td>{cookieData && cookieData[index]?.qty}</td>
           <td className="text-end">{cartItem.total}</td>
         </tr>
         )
