@@ -85,7 +85,6 @@ export default function UncleInfoDetailPage() {
       cookieData.push(cookie)
       const jsonCookieData = JSON.stringify(cookieData);
       Cookies.set("tickList", jsonCookieData, { expires: 1 });
-      console.log(JSON.parse(Cookies.get("tickList")));
     } catch (error) {
       alert(error);
     } finally {

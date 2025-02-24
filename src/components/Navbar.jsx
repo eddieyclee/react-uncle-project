@@ -31,7 +31,7 @@ export default function Navbar() {
             <NavLink className="nav-link" to="/">精選文章</NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/">購物車</NavLink>
+            <NavLink className="nav-link" to="/carts">購物車</NavLink>
           </li>
           <li className="nav-item">
             <NavLink className="nav-link" to="/">登入</NavLink>
