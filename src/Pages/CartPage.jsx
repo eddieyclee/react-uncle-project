@@ -7,14 +7,17 @@ const API_PATH = import.meta.env.VITE_API_PATH;
 
 export default function CartPage() {
   const [cart, setCart] = useState({});
-  const [cookieData, setCookieData] = useState(JSON.parse(Cookies.get("tickList")));
+  const [cookieData, setCookieData] = useState(null);
 
   useEffect(() => {
     const getCart = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}/api/${API_PATH}/cart`);
-        setCart(res.data.data);
-        setCookieData(cookieData.map((item) => JSON.parse(item)));
+        if (Cookies.get("tickList")) {
+          const tickListAry = JSON.parse(Cookies.get("tickList")).map((item) => JSON.parse(item));
+          const res = await axios.get(`${BASE_URL}/api/${API_PATH}/cart`);
+          setCookieData(tickListAry);
+          setCart(res.data.data);
+        }
       // eslint-disable-next-line no-unused-vars
       } catch (error) {
         alert('取得購物車列表失敗');
@@ -25,7 +28,6 @@ export default function CartPage() {
   
   return (
     <>
-    {console.log(cookieData)}
     <table className="table align-middle">
       <thead>
       <tr>
@@ -42,8 +44,8 @@ export default function CartPage() {
         <tr key={cartItem.id}>
           <td><button type="button" className="btn btn-outline-danger btn-sm">x</button></td>
           <td>{cartItem.product.title}</td>
-          <td>{cookieData[index].ticket}</td>
-          <td>{cookieData[index].qty}</td>
+          <td>{cookieData && cookieData[index].ticket}</td>
+          <td>{cookieData && cookieData[index].qty}</td>
           <td className="text-end">{cartItem.total}</td>
         </tr>
         )
