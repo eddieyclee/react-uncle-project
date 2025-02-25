@@ -43,6 +43,10 @@ export default function UncleInfoDetailPage() {
     getProducts();
   }, [product_id]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const addCartItem = async (ticket) => {
     // '一小時券', '二小時券', '三小時券', '半日券', '全日券', '三日券'
     let newQty;
