@@ -30,8 +30,8 @@ export default function CartPage() {
   const removeCartItem = async (cartItem_id, cartItem_product_id) => {
     // setIsScreenLoading(true);
     try {
-      await axios.delete(`${BASE_URL}/api/${API_PATH}/cart/${cartItem_id}`);
       if (Cookies.get("tickList")) {
+        await axios.delete(`${BASE_URL}/api/${API_PATH}/cart/${cartItem_id}`);
         const tickListAry = JSON.parse(Cookies.get("tickList")).map((item) => JSON.parse(item));
         const newTickListAry = tickListAry.filter((item) => {
           return (item.product_id !== cartItem_product_id)
