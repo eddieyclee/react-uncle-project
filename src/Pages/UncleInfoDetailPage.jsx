@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useParams } from "react-router";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import '../style.css';
@@ -198,6 +203,97 @@ export default function UncleInfoDetailPage() {
             </div>
             <div className='uncle-button'>
               <button className='cart-button' onClick={() => addCartItem(ticket)}>加入購物車</button>
+            </div>
+          </div>
+        </div>
+        <div className="uncle-info-phone">
+          <div className="uncle-details">
+            <div><label className='name'>{product.title}</label></div>
+            <div className="row">
+              <div className="col">
+                <div className='sub-title-content'>
+                  <label className='title'>所在地</label>
+                  <label className='content'>{product.category}</label>
+                </div>
+              </div>
+              <div className="col">
+                <div className='sub-title-content'>
+                  <label className='title'>使用語言</label>
+                  {product.content?.split(',').map((item) => {
+                      return (
+                        <label key={item} className='content me-2' style={
+                          { display:'inline-block'}
+                        }>{item}</label>
+                      )
+                  })}
+                </div>
+              </div>
+            </div>
+            <div className='section-iphone'>
+              <Swiper
+                className="image-swiper"
+                modules={[Navigation, Pagination]}
+                pagination={{ clickable: true }}
+                navigation
+              >
+                <SwiperSlide><img src={product.imageUrl} alt="圖片1" /></SwiperSlide>
+                <SwiperSlide><img src={photoAddressData[1]} alt="圖片2" /></SwiperSlide>
+                <SwiperSlide><img src={photoAddressData[2]} alt="圖片3" /></SwiperSlide>
+                <SwiperSlide><img src={photoAddressData[3]} alt="圖片4" /></SwiperSlide>
+              </Swiper>
+              {/* <img className="image" src={subPhotoAddress} alt="產品圖片" /> */}
+            </div>
+            <div className='sub-title-content'>
+              <label className='title'>專長</label>
+              {product.description?.split(',').map((item) => {
+                  return (
+                    <span key={item} className="tag">{item}</span>
+                  )
+              })}
+            </div>
+            <div className='section-3'>
+              <div className='sub-content'>
+                <label className='info' htmlFor="">大叔介紹</label>
+                <p className='info'>擁有 20 年以上人生閱歷，溫柔耐心，善於與人溝通，最喜歡幫助他人繁决問題。無論是陪伴長者、協助機務，還是成為成為談心的對象，都會以專業和細心滿足您的需求。</p>
+              </div>
+              <div className='sub-content'>
+                <label className='spec-info' htmlFor="">產品規格介紹</label>
+                <p className='info'>全部規格包含：一小時券、二小時券、三小時券、半日券、全日券、三日券，半日券的服務時長最長不超過 4 小時，全日券之服務時長不超過 8 小時，三日券的使用方式，請與大叔約定使用之日期，每個日期提供等同一日券服務，服務時長不超過 8 小時。</p>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-6">
+                <label className='title'>規格<span style={{color: 'red'}}>*</span></label>
+                <select className='mt-1' value={ticket} onChange={(el) => setTicket(el.target.value)}>
+                  <option value="" disabled>請選擇</option>
+                  {tickets.map((item) => {
+                    return (<option key={item} value={item}>{item}</option>)
+                  })}
+                </select>
+              </div>
+              <div className="col-6">
+                <label className='title'>數量</label>
+                <div className="quantity-container mt-1">
+                  <button className="quantity-button-l" onClick={() => setQty(qty-1)} disabled={qty === 1}>-</button>
+                  <input type="text" className="quantity-input" value={qty} readOnly/>
+                  <button className="quantity-button-r" onClick={() => setQty(qty+1)}>+</button>
+                </div>
+              </div>
+            </div>
+            <div className='uncle-price'>
+              <div className='sub-title-content'>
+                <label className='title'>價格(時)</label>
+                <label className='content-price'>{`NT${product.price}`}</label>
+              </div>
+            </div>
+            <div className='uncle-button'>
+              <button className='cart-button' onClick={() => addCartItem(ticket)}>加入購物車</button>
+            </div>
+            <div className='section-3'>
+              <div className='sub-content'>
+                <label className='info' htmlFor="">服務聲明</label>
+                <p className='service-info'>大叔提供合法、安全的協助服務,內容依平台規範進行，非專業需求請謹慎選擇。服務過程如因不可抗力造成問題，平台將協助處理，但不負最終責任。</p>
+              </div>
             </div>
           </div>
         </div>
