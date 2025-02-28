@@ -160,13 +160,12 @@ export default function UncleInfoDetailPage() {
             </div>
             <div className='sub-title-content'>
               <label className='title'>使用語言</label>
-              {product.content?.split(',').map((item) => {
-                  return (
-                    <label key={item} className='content me-2' style={
-                      { display:'inline-block'}
-                    }>{item}</label>
-                  )
-              })}
+              {<label key={product.content} className='content me-2' style=
+              {
+                { display:'inline-block'}
+              }>
+                {product.content?.split(',').map((item) => item).join('、')}
+              </label>}
             </div>
             <div className='sub-title-content'>
               <label className='title'>專長</label>
@@ -219,13 +218,12 @@ export default function UncleInfoDetailPage() {
               <div className="col">
                 <div className='sub-title-content'>
                   <label className='title'>使用語言</label>
-                  {product.content?.split(',').map((item) => {
-                      return (
-                        <label key={item} className='content me-2' style={
-                          { display:'inline-block'}
-                        }>{item}</label>
-                      )
-                  })}
+                  {<label key={product.content} className='content me-2' style=
+                  {
+                    { display:'inline-block'}
+                  }>
+                    {product.content?.split(',').map((item) => item).join('、')}
+                  </label>}
                 </div>
               </div>
             </div>
@@ -241,7 +239,6 @@ export default function UncleInfoDetailPage() {
                 <SwiperSlide><img src={photoAddressData[2]} alt="圖片3" /></SwiperSlide>
                 <SwiperSlide><img src={photoAddressData[3]} alt="圖片4" /></SwiperSlide>
               </Swiper>
-              {/* <img className="image" src={subPhotoAddress} alt="產品圖片" /> */}
             </div>
             <div className='sub-title-content'>
               <label className='title'>專長</label>

@@ -49,7 +49,7 @@ body {
   max-height: 428px;
   width: 100%;
   height: 100%;
-  background-image: url('https://s3-alpha-sig.figma.com/img/3dca/5564/e9358952b49bc105b9e8f470a1455ca8?Expires=1740355200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=DvbcBeHpQN8lc6A141jL03k2Yy~ZY-OKbRKeBP55~4gLj4zr4KQIz88xrZTAaOySgN~6OoCDvvhuH0k~NaXI1PSOJI1Lp0WHsNBS7~JqCskUnzkxt6uucjTaEumOW1NIB2Laa0O0d6VH1DOCoQGV42Jk3scxUlFN29W8wJukDxoDpAnZLpWdmxOPh-u9PSxjDmbnc51hXhKjeaKr~yHRPlJAQswVz0G-gd6gw45~4-UH3rl7z9AHSNCfLLaiShSGdb1kLovjmvSoC5S6mqHVRgMErMRTA7c63cjGW4xuvujEigWvilVCnMU9RAWSVR0TjfkRp~90CE3B~rJsu1Rhmw__');
+  background-image: url('assets/Mission100.jpg');
   background-size: cover; /* 讓圖片填滿，但不變形 */
   background-position: center; /* 讓圖片置中顯示 */
   background-repeat: no-repeat; /* 不重複 */
@@ -65,7 +65,7 @@ body {
 
 .image-swiper {
   width: 100%;
-  height: 297px;
+  height: 100%;
 }
 
 .image-swiper img {
@@ -102,11 +102,11 @@ body {
   max-height: 347px;
   width: 100%;
   height: 100%;
-  background-image: url('https://s3-alpha-sig.figma.com/img/3dca/5564/e9358952b49bc105b9e8f470a1455ca8?Expires=1740355200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=DvbcBeHpQN8lc6A141jL03k2Yy~ZY-OKbRKeBP55~4gLj4zr4KQIz88xrZTAaOySgN~6OoCDvvhuH0k~NaXI1PSOJI1Lp0WHsNBS7~JqCskUnzkxt6uucjTaEumOW1NIB2Laa0O0d6VH1DOCoQGV42Jk3scxUlFN29W8wJukDxoDpAnZLpWdmxOPh-u9PSxjDmbnc51hXhKjeaKr~yHRPlJAQswVz0G-gd6gw45~4-UH3rl7z9AHSNCfLLaiShSGdb1kLovjmvSoC5S6mqHVRgMErMRTA7c63cjGW4xuvujEigWvilVCnMU9RAWSVR0TjfkRp~90CE3B~rJsu1Rhmw__');
+  background-image: url('assets/Mission100.jpg');
   background-size: cover; /* 讓圖片填滿，但不變形 */
   background-position: center; /* 讓圖片置中顯示 */
   background-repeat: no-repeat; /* 不重複 */
-  padding: 32px;
+  padding: 26px;
   padding-top: 24PX;
 }
 
@@ -263,4 +263,60 @@ label.content-price {
   padding-right: 12px;
   padding-bottom: 16px;
   background-color: #73DB6A;
+}
+
+/* 修改箭頭的顏色、大小、背景 */
+.swiper-button-prev, .swiper-button-next {
+  color: black;
+  background: #E0E0E0;
+  border: 2px solid #73DB6A;
+  width: 48px;
+  height: 48px;
+}
+
+/* 修改箭頭圖示 */
+.swiper-button-prev::after, 
+.swiper-button-next::after {
+  content: "→";
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.swiper-button-prev::after {
+  content: "←";
+}
+
+/* 修改 Hover 效果 */
+.swiper-button-prev:hover, .swiper-button-next:hover {
+  background: #73DB6A;
+  border: 2px solid #73DB6A;
+}
+
+/* 修改 disabled 效果 */
+.swiper-button-disabled {
+  color: #333435;
+  background: #E0E0E0;
+  border: none;
+}
+
+/* 修改箭頭的位置 */
+.swiper-button-prev {
+  left: 0px; /* 向左移 */
+}
+
+.swiper-button-next {
+  right: 0px; /* 向右移 */
+}
+
+/* 讓點點變成長條 */
+.swiper-pagination-bullet {
+  width: 24px;
+  height: 2px;
+  border-radius: 2px;
+  background: #333435;
+}
+
+/* 選中狀態時的長條 */
+.swiper-pagination-bullet-active {
+  background: #73DB6A;
 }
