@@ -49,7 +49,11 @@ export default function UncleInfoDetailPage() {
   }, [product_id]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'instant'
+    });
   }, []);
 
   const addCartItem = async (ticket) => {
@@ -231,7 +235,7 @@ export default function UncleInfoDetailPage() {
               <Swiper
                 className="image-swiper"
                 modules={[Navigation, Pagination]}
-                pagination={{ clickable: true }}
+                pagination={{ el: ".custom-pagination", clickable: true }} // 指定外部 pagination
                 navigation
               >
                 <SwiperSlide><img src={product.imageUrl} alt="圖片1" /></SwiperSlide>
@@ -240,6 +244,8 @@ export default function UncleInfoDetailPage() {
                 <SwiperSlide><img src={photoAddressData[3]} alt="圖片4" /></SwiperSlide>
               </Swiper>
             </div>
+            {/* Pagination 元素放在 Swiper 之外 */}
+            <div className="custom-pagination"></div>
             <div className='sub-title-content'>
               <label className='title'>專長</label>
               {product.description?.split(',').map((item) => {

@@ -309,14 +309,32 @@ label.content-price {
 }
 
 /* 讓點點變成長條 */
-.swiper-pagination-bullet {
+/* .swiper-pagination-bullet {
+  width: 24px;
+  height: 2px;
+  border-radius: 2px;
+  background: #333435;
+} */
+
+/* 選中狀態時的長條 */
+/* .swiper-pagination-bullet-active {
+  background: #73DB6A;
+} */
+
+.custom-pagination {
+  margin: 10px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.custom-pagination .swiper-pagination-bullet {
   width: 24px;
   height: 2px;
   border-radius: 2px;
   background: #333435;
 }
 
-/* 選中狀態時的長條 */
-.swiper-pagination-bullet-active {
+.custom-pagination .swiper-pagination-bullet-active {
   background: #73DB6A;
 }
