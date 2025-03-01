@@ -151,6 +151,7 @@ Please change the parent <Route path="${A}"> to <Route path="${A==="/"?"*":`${A}
     border: 1px solid rgb(161, 161, 161);
     font-weight: 500;
     margin-top: auto; /* 讓按鈕總是在底部 */
+    min-width: 123px;
   }
 
   .article-card:hover .btn,
@@ -192,7 +193,7 @@ Please change the parent <Route path="${A}"> to <Route path="${A==="/"?"*":`${A}
       display: none;
     }
   }
-`;function oz({product:n,length:t}){return V.jsx(V.Fragment,{children:V.jsx("div",{className:`col-12 ${t===1?"col-md-12":"col-md-4"}`,children:V.jsxs("div",{className:"article-card d-flex flex-row flex-md-column ",children:[V.jsx("div",{className:"frame",children:V.jsx("img",{src:n.imageUrl,alt:n.title})}),V.jsxs("div",{className:"card-body text-start d-grid",children:[V.jsx("h5",{children:n.title}),V.jsx("p",{className:"mt-2",children:n.description}),V.jsx(xg,{className:"btn btn-dark",to:`/uncleinfo/${n.id}`,children:"了解更多"})]})]})})})}const cz=tv.ul`
+`;function oz({product:n,length:t}){return V.jsx(V.Fragment,{children:V.jsx("div",{className:`col-12 ${t===1?"col-md-8 offset-md-2":t<=2?"col-md-6":"col-md-4"}`,children:V.jsxs("div",{className:"article-card d-flex flex-row flex-md-column ",children:[V.jsx("div",{className:"frame",children:V.jsx("img",{src:n.imageUrl,alt:n.title})}),V.jsxs("div",{className:"card-body text-start d-grid",children:[V.jsx("h5",{children:n.title}),V.jsx("p",{className:"mt-2",children:n.description}),V.jsx(xg,{className:"btn btn-dark",to:`/uncleinfo/${n.id}`,children:"了解更多"})]})]})})})}const cz=tv.ul`
   --theme-border: #a5ee9d;
   --theme-title: #5caf55;
   --theme-color: #e0e0e0;
