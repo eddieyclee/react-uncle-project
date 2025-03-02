@@ -90,7 +90,7 @@ body {
 }
 
 .section-2 {
-  background-color: black;
+  background-color: #000000;
   padding: 12px;
 }
 
@@ -128,7 +128,7 @@ p.service-info {
 }
 
 label.info, label.spec-info {
-  border: 1px solid black;
+  border: 1px solid #000000;
   background-color: #F8F8F9;
   padding-left: 12px;
   padding-right: 12px;
@@ -174,7 +174,7 @@ label.content {
 span.tag {
   display: inline-block; /* 讓標籤們排成一行 */
   background-color: rgba(212, 248, 196, 0.4); /* 淡綠色背景 */
-  color: #000; /* 文字顏色 */
+  color: #000000; /* 文字顏色 */
   border: 2px solid #A5EE9D; /* 綠色邊框 */
   border-radius: 34px; /* 圓角 */
   padding: 4px 12px; /* 內邊距 */
@@ -263,6 +263,11 @@ label.content-price {
   padding-right: 12px;
   padding-bottom: 16px;
   background-color: #73DB6A;
+  border: 1px solid #000000;
+}
+
+.cart-button:hover {
+  background-color: #A5EE9D;
 }
 
 /* 修改箭頭的顏色、大小、背景 */
@@ -308,19 +313,6 @@ label.content-price {
   right: 0px; /* 向右移 */
 }
 
-/* 讓點點變成長條 */
-/* .swiper-pagination-bullet {
-  width: 24px;
-  height: 2px;
-  border-radius: 2px;
-  background: #333435;
-} */
-
-/* 選中狀態時的長條 */
-/* .swiper-pagination-bullet-active {
-  background: #73DB6A;
-} */
-
 .custom-pagination {
   margin: 10px;
   height: 20px;
@@ -337,4 +329,41 @@ label.content-price {
 
 .custom-pagination .swiper-pagination-bullet-active {
   background: #73DB6A;
+}
+
+.table th, .table td {
+  width: 16%;
+  text-align: center; /* 讓內容置中 */
+}
+
+.cart-image {
+  width: 100%;
+}
+
+.shipping-button, .order-button {
+  min-width: 100px;
+  padding-left: 8px;
+  padding-top: 10px;
+  padding-right: 8px;
+  padding-bottom: 10px;
+  background-color: #E0E0E0;
+  border: 1px solid #9B9B9B;
+}
+
+.shipping-button {
+  background-color: #E0E0E0;
+  border: 1px solid #9B9B9B;
+}
+
+.shipping-button:hover {
+  background-color: #333435;
+}
+
+.order-button {
+  background-color: #73DB6A;
+  border: 1px solid #000000;
+}
+
+.order-button:hover {
+  background-color: #A5EE9D;
 }

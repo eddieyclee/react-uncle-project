@@ -3,7 +3,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 import ArticlePageStyle from "../styles/ArticlePageStyle";
-import Card from "../components/Card";
+import UncleInfoCard from "../components/UncleInfoCard";
 import Pagination from "../components/Pagination";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -74,7 +74,7 @@ export default  function UncleInfoPage() {
           {/* <!-- 卡片 --> */}
           {displayProducts && displayProducts.length > 0 ? (
             displayProducts.map((product) => (
-              <Card product={product} length={displayProducts.length}></Card>
+              <UncleInfoCard product={product} length={displayProducts.length}></UncleInfoCard>
             ))
           ) : (
             <div>
@@ -88,6 +88,6 @@ export default  function UncleInfoPage() {
         pageInfo={pageInfo}
         handlePageChange={handlePageChange}
       ></Pagination>
-   </ArticlePageStyle>
+    </ArticlePageStyle>
   )
 }

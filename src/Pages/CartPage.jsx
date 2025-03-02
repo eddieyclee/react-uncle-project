@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import Cookies from 'js-cookie';
 import axios from "axios";
 
@@ -8,6 +9,7 @@ const API_PATH = import.meta.env.VITE_API_PATH;
 export default function CartPage() {
   const [cart, setCart] = useState({});
   const [cookieData, setCookieData] = useState(null);
+  const navigate = useNavigate();
 
   const getCart = async () => {
     try {
@@ -55,36 +57,47 @@ export default function CartPage() {
   
   return (
     <>
-    <table className="table align-middle">
-      <thead>
-      <tr>
-        <th></th>
-        <th>名稱</th>
-        <th>規格</th>
-        <th style={{ width: "150px" }}>數量/單位</th>
-        <th className="text-end">單價</th>
-      </tr>
-      </thead>
-      <tbody>
-      {cart.carts?.map((cartItem, index) => {
-        return (
-        <tr key={cartItem.id}>
-          <td><button type="button" className="btn btn-outline-danger btn-sm" onClick={() => removeCartItem(cartItem.id, cartItem.product_id)}>X</button></td>
-          <td>{cartItem.product.title}</td>
-          <td>{cookieData && cookieData[index]?.ticket}</td>
-          <td>{cookieData && `X${cookieData[index]?.qty}`}</td>
-          <td className="text-end">{cartItem.total}</td>
-        </tr>
-        )
-      })}
-      </tbody>
-      <tfoot>
-      <tr>
-        <td colSpan="4" className="text-end">總計：</td>
-        <td className="text-end" style={{ width: "130px" }}>{cart.total}</td>
-      </tr>
-      </tfoot>
-    </table>
+    {cart.carts?.length ? 
+    (<div className="container">
+      <h1>購物車</h1>
+      <table className="table align-middle" style={{ tableLayout: "fixed", width: "100%" }}>
+        <thead>
+          <tr>
+            <th>大叔圖片</th>
+            <th>大叔稱呼</th>
+            <th>購買內容</th>
+            <th>數量</th>
+            <th>費用</th>
+            <th>刪除</th>
+          </tr>
+        </thead>
+        <tbody>
+          {cart.carts.map((cartItem, index) => {
+            return (
+            <tr key={cartItem.id}>
+              <td><img className='cart-image' src={cartItem.product.imageUrl} alt="圖片" /></td>
+              <td>{cartItem.product.title}</td>
+              <td>{cookieData[index]?.ticket}</td>
+              <td>{`X${cookieData[index]?.qty}`}</td>
+              <td>{`NT.${cartItem.total}`}</td>
+              <td><button type="button" className="btn btn-outline-danger btn-sm" onClick={() => removeCartItem(cartItem.id, cartItem.product_id)}>X</button></td>
+            </tr>
+            )
+          })}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colSpan="6">
+              <div className="d-flex justify-content-between">
+                <button className="shipping-button" onClick={() => navigate('/uncleinfos')}>繼續購物</button>
+                <button className="order-button">結帳</button>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>) : <div className="container"><h1>無購物清單資料</h1></div>
+    }
   </>
   )
 }
